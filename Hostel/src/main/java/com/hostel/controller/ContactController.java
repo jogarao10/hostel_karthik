@@ -1,5 +1,7 @@
 package com.hostel.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,8 @@ import jakarta.mail.MessagingException;
 @RestController
 @RequestMapping("/api")
 public class ContactController {
+	
+	 private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
 
     @Autowired
     private EmailService emailService;
@@ -39,9 +43,12 @@ public class ContactController {
 
             // Send the email using your EmailService
             emailService.sendEmail(ownerEmail, subject, body);
+            logger.info("Contact email successfully sent to {}", ownerEmail);
 
             return new ResponseEntity<>("Message sent successfully!", HttpStatus.OK);
         } catch (MessagingException e) {
+        	
+        	logger.error("Error sending contact email: {}", e.getMessage());
             return new ResponseEntity<>("Error sending email: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

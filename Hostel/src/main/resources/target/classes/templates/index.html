@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description"
+		content="Comfortable and affordable PG accommodation in HITEC City, Hyderabad with homely food, WiFi, and premium amenities. Book now!">
+	<title>Karthik's Elite PG</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<!-- Font Awesome CDN -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="/css/style.css">
+	<!-- Toast container -->
+	<div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;"></div>
+	<!-- Optional: Include your FontAwesome kit if needed -->
+	<script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<!-- Booking Modal -->
+	<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="bookingModalLabel">Confirm Your Booking</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="bookingForm">
+						<!-- Name Field -->
+						<div class="mb-3">
+							<label for="customerName" class="form-label">Name</label>
+							<input type="text" class="form-control" id="customerName" required>
+							<small id="nameError" class="text-danger d-none">Only letters are allowed.</small>
+						</div>
+
+						<!-- Phone Field -->
+						<div class="mb-3">
+							<label for="customerPhone" class="form-label">Phone</label>
+							<input type="tel" class="form-control" id="customerPhone" required>
+							<small id="phoneError" class="text-danger d-none">Only numbers are allowed.</small>
+						</div>
+
+						<!-- Display Selected Room -->
+						<div class="mb-3">
+							<label class="form-label">Selected Room</label>
+							<p id="selectedRoom" class="fw-bold"></p>
+						</div>
+					</form>
+					<!-- Alert Message (Hidden Initially) -->
+					<div id="confirmationMessage" class="alert alert-success text-center d-none">
+						Booking Confirmed! You will receive a confirmation email shortly.
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button id="confirmBookingBtn" class="btn btn-success">Confirm Booking</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand fw-bold" href="#">Karthik's Elite PG</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" href="#accommodation">Rooms</a></li>
+					<li class="nav-item"><a class="nav-link" href="#amenities">Amenities</a></li>
+					<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Hero Section -->
+	<header class="hero-section">
+		<div class="hero-overlay">
+			<h1 class="hero-title">Welcome to Karthik's Elite Men's PG</h1>
+			<p class="hero-subtitle">Premium accommodation rooms AC and non-AC with homely food, WiFi, and top-class amenities.</p>
+		</div>
+	</header>
+
+	<!-- Accommodation Section -->
+	<section id="accommodation" class="container-fluid py-5">
+		<h2 class="text-center mb-4 fw-bold">Accommodation Options</h2>
+		<div class="row justify-content-center">
+			<!-- Accommodation Card Example -->
+			<div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+				<div class="card text-center accommodation-card d-flex flex-column">
+					<div class="card-header bg-primary text-white">4 Sharing</div>
+					<div class="card-body flex-grow-1">
+						<h4 class="fw-bold">₹7,500<span class="text-muted">/month</span></h4>
+						<ul class="list-unstyled text-start ps-3">
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Homely
+								Food</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Free WiFi
+							</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Hot Water
+							</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Safety
+								Locker</li>
+						</ul>
+					</div>
+					<div class="card-footer">
+						<button class="btn btn-primary btn-block book-now-btn" data-bs-toggle="modal"
+							data-bs-target="#bookingModal" data-room="4 Sharing - ₹7,500/month">Book Now</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+				<div class="card text-center accommodation-card d-flex flex-column">
+					<div class="card-header bg-primary text-white">3 Sharing</div>
+					<div class="card-body flex-grow-1">
+						<h4 class="fw-bold">₹8,500<span class="text-muted">/month</span></h4>
+						<ul class="list-unstyled text-start ps-3">
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Homely
+								Food</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Free WiFi
+							</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Hot Water
+							</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Safety
+								Locker</li>
+						</ul>
+					</div>
+					<div class="card-footer">
+						<button class="btn btn-primary btn-block book-now-btn" data-bs-toggle="modal"
+							data-bs-target="#bookingModal" data-room="3 Sharing - ₹8,500/month">Book Now</button>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+				<div class="card text-center accommodation-card d-flex flex-column">
+					<div class="card-header bg-primary text-white">2 Sharing</div>
+					<div class="card-body flex-grow-1">
+						<h4 class="fw-bold">₹11,000<span class="text-muted">/month</span></h4>
+						<ul class="list-unstyled text-start ps-3">
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Homely
+								Food</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Free WiFi
+							</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Hot Water
+							</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Safety
+								Locker</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i><b>Study Table</b> (Exclusive)</li>
+						</ul>
+					</div>
+					<div class="card-footer">
+						<button class="btn btn-primary btn-block book-now-btn" data-bs-toggle="modal"
+							data-bs-target="#bookingModal" data-room="2 Sharing - ₹11,000/month">Book Now</button>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+				<div class="card text-center accommodation-card d-flex flex-column">
+					<div class="card-header bg-primary text-white">2 Sharing AC <span
+							class="badge bg-warning">Premium</span></div>
+					<div class="card-body flex-grow-1">
+						<h4 class="fw-bold">₹16,000<span class="text-muted">/month</span></h4>
+						<ul class="list-unstyled text-start ps-3">
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Homely
+								Food</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Free WiFi
+							</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Hot Water
+							</li>
+							<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i>Safety
+								Locker</li>
+								<li class="d-flex align-items-center"><i class="fa fa-check text-success me-2"></i><b>Study Table</b> (Exclusive)</li>
+						</ul>
+					</div>
+					<div class="card-footer">
+						<button class="btn btn-primary btn-block book-now-btn" data-bs-toggle="modal"
+							data-bs-target="#bookingModal" data-room="2 Sharing AC (Premium) - ₹16,000/month">Book
+							Now</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<!-- Amenities Section -->
+	<section id="amenities" class="container py-5">
+		<h2 class="text-center mb-4 fw-bold">Our Amenities</h2>
+		<div class="row justify-content-center">
+
+			<!-- Example Amenity Card -->
+			<div class="col-md-4 col-sm-6 mb-4">
+				<div class="card shadow-sm p-3 text-center amenity-card">
+					<div class="icon-box"><i class="fas fa-utensils"></i></div>
+					<h5 class="fw-bold">Homely Food</h5>
+					<p class="text-muted">Enjoy nutritious and delicious home-cooked meals that will remind you of home.
+					</p>
+				</div>
+			</div>
+			<!-- Free WiFi -->
+			<div class="col-md-4 col-sm-6 mb-4">
+				<div class="card shadow-sm p-3 text-center amenity-card">
+					<div class="icon-box"><i class="fas fa-wifi"></i></div>
+					<h5 class="fw-bold">Free WiFi</h5>
+					<p class="text-muted">Stay connected with high-speed internet access available throughout the
+						premises.</p>
+				</div>
+			</div>
+
+			<!-- Hot Water -->
+			<div class="col-md-4 col-sm-6 mb-4">
+				<div class="card shadow-sm p-3 text-center amenity-card">
+					<div class="icon-box"><i class="fas fa-tint"></i></div>
+					<h5 class="fw-bold">Hot Water</h5>
+					<p class="text-muted">Enjoy the comfort of hot water facilities available 24/7 for your convenience.
+					</p>
+				</div>
+			</div>
+
+			<!-- CCTV Security -->
+			<div class="col-md-4 col-sm-6 mb-4">
+				<div class="card shadow-sm p-3 text-center amenity-card">
+					<div class="icon-box"><i class="fas fa-video"></i></div>
+					<h5 class="fw-bold">CC Camera Security</h5>
+					<p class="text-muted">Feel safe with our 24/7 CCTV surveillance system monitoring the premises.</p>
+				</div>
+			</div>
+
+			<!-- Lockers -->
+			<div class="col-md-4 col-sm-6 mb-4">
+				<div class="card shadow-sm p-3 text-center amenity-card">
+					<div class="icon-box"><i class="fas fa-lock"></i></div>
+					<h5 class="fw-bold">Lockers</h5>
+					<p class="text-muted">Keep your valuables safe with personal lockers provided to each resident.</p>
+				</div>
+			</div>
+
+			<!-- Prime Location -->
+			<div class="col-md-4 col-sm-6 mb-4">
+				<div class="card shadow-sm p-3 text-center amenity-card">
+					<div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+					<h5 class="fw-bold">Prime Location</h5>
+					<p class="text-muted">Located in Siddiq Nagar, HITECH City, with easy access to IT companies and
+						amenities.</p>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<!-- Contact Section -->
+	<section id="contact" class="container py-5">
+		<h2 class="text-center fw-bold mb-4">Contact Us</h2>
+		<div class="row justify-content-center">
+			<!-- Contact Details -->
+			<div class="col-md-5 mb-4">
+				<div class="contact-card">
+					<h4 class="fw-bold">Get in Touch</h4>
+					<div class="contact-info mt-3">
+						<p><i class="fas fa-phone icon-box"></i><strong>Phone</strong></p>
+						<p>
+							<a href="tel:+918500066701">+91 8500066701</a><br>
+							<a href="tel:+919885941361">+91 9885941361</a>
+						</p>
+						<p><i class="fas fa-envelope icon-box"></i><strong>Email</strong></p>
+						<p>
+							<a href="mailto:elitekarthikpg@gmail.com">elitekarthikpg@gmail.com</a>
+						</p>
+						<p><i class="fas fa-map-marker-alt icon-box"></i><strong>Address</strong></p>
+						<p>
+							<a href="https://maps.app.goo.gl/dfABR8ngHjAgnYGFA" target="_blank">
+								Siddiq Nagar, HITEC City, Hyderabad, Telangana 500081
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<!-- Contact Form -->
+			<div class="col-md-6">
+				<div class="contact-card">
+					<h4 class="fw-bold">Send us a Message</h4>
+					<form id="contactForm">
+						<div class="mb-3">
+							<label for="name" class="form-label">Your Name</label>
+							<input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email Address</label>
+							<input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+						</div>
+						<div class="mb-3">
+							<label for="phone" class="form-label">Phone Number</label>
+							<input type="tel" class="form-control" id="phone" placeholder="Enter your phone number"
+								required>
+						</div>
+						<div class="mb-3">
+							<label for="message" class="form-label">Message</label>
+							<textarea class="form-control" id="message" rows="3" placeholder="Enter your message"
+								required></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary w-100">Send Message</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="bg-dark text-white py-4">
+		<div class="container">
+			<div class="row">
+				<!-- About -->
+				<div class="col-md-4">
+					<h5>Karthik's Elite PG</h5>
+					<p>Providing comfortable and affordable PG accommodation in HITEC City, Hyderabad.</p>
+					<a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+					<a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+				</div>
+				<!-- Quick Links -->
+				<div class="col-md-4">
+					<h5>Quick Links</h5>
+					<ul class="list-unstyled">
+						<li><a href="#" class="text-white text-decoration-none">Home</a></li>
+						<li><a href="#" class="text-white text-decoration-none">Pricing</a></li>
+						<li><a href="#" class="text-white text-decoration-none">Amenities</a></li>
+						<li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+					</ul>
+				</div>
+				<!-- Contact Information -->
+				<div class="col-md-4">
+					<h5>Contact Information</h5>
+					<p>
+						<i class="fas fa-phone"></i>
+						<a href="tel:+918500066701">+91 85000 66701</a>,
+						<a href="tel:+919885941361">+91 9885941361</a>
+					</p>
+					<p>
+						<i class="fas fa-envelope"></i>
+						<a href="mailto:elitekarthikpg@gmail.com">elitekarthikpg@gmail.com</a>
+					</p>
+					<p>
+						<i class="fas fa-map-marker-alt"></i>
+						<a href="https://maps.app.goo.gl/dfABR8ngHjAgnYGFA" rel="noopener noreferrer">
+							Siddiq Nagar, HITEC City, Hyderabad, Telangana 500081
+						</a>
+					</p>
+				</div>
+			</div>
+			<div class="text-center mt-3">
+				<p>&copy; 2025 Karthik's Elite Men's PG. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap JS Bundle (only included once) -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Custom JavaScript -->
+	<script src="/js/booking.js"></script>
+	
+</body>
+
+</html>

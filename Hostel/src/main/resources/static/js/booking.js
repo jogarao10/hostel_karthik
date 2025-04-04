@@ -122,74 +122,99 @@ document.addEventListener("DOMContentLoaded", function() {
 				.catch(error => console.error("Error:", error));
 		});
 	}
-	
+
 	// Contact Form Validation
 
-    const contactForm = document.getElementById("contactForm");
-    const nameField = document.getElementById("name");
-    const emailField = document.getElementById("email");
-    const phoneField = document.getElementById("phone");
-    const messageField = document.getElementById("message");
+	const contactForm = document.getElementById("contactForm");
+	const nameField = document.getElementById("name");
+	const emailField = document.getElementById("email");
+	const phoneField = document.getElementById("phone");
+	const messageField = document.getElementById("message");
 
-    function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
+	function validateEmail(email) {
+		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+	}
 
-    function validateName(name) {
-        return /^[A-Za-z\s]+$/.test(name);
-    }
+	function validateName(name) {
+		return /^[A-Za-z\s]+$/.test(name);
+	}
 
-    function validatePhone(phone) {
-        return /^\d{10}$/.test(phone);
-    }
+	function validatePhone(phone) {
+		return /^\d{10}$/.test(phone);
+	}
 
-    nameField.addEventListener("input", function () {
-        nameField.setCustomValidity(validateName(nameField.value) ? "" : "Only letters and spaces are allowed.");
-    });
+	nameField.addEventListener("input", function() {
+		nameField.setCustomValidity(validateName(nameField.value) ? "" : "Only letters and spaces are allowed.");
+	});
 
-    phoneField.addEventListener("input", function () {
-        phoneField.setCustomValidity(validatePhone(phoneField.value) ? "" : "Enter a valid 10-digit phone number.");
-    });
+	phoneField.addEventListener("input", function() {
+		phoneField.setCustomValidity(validatePhone(phoneField.value) ? "" : "Enter a valid 10-digit phone number.");
+	});
 
-    emailField.addEventListener("input", function () {
-        emailField.setCustomValidity(validateEmail(emailField.value) ? "" : "Enter a valid email address.");
-    });
+	emailField.addEventListener("input", function() {
+		emailField.setCustomValidity(validateEmail(emailField.value) ? "" : "Enter a valid email address.");
+	});
 
-    if (contactForm) {
-        contactForm.addEventListener("submit", function (event) {
-            event.preventDefault();
+	if (contactForm) {
+    let isSubmitting = false; // Flag to prevent multiple submissions
 
-            if (!contactForm.checkValidity()) {
-                contactForm.reportValidity();
-                return;
-            }
+    contactForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-            const formData = {
-                name: nameField.value.trim(),
-                email: emailField.value.trim(),
-                phone: phoneField.value.trim(),
-                message: messageField.value.trim()
-            };
+        // Prevent duplicate submissions
+        if (isSubmitting) return;
+        isSubmitting = true;
 
-            console.log("Contact Form Data:", formData);
+        // Disable the submit button
+        const submitButton = contactForm.querySelector("button[type='submit']");
+        submitButton.disabled = true;
+        submitButton.innerText = "Sending...";
 
-            fetch("http://localhost:8081/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
+        if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            // Reset the flag and button state if invalid
+            isSubmitting = false;
+            submitButton.disabled = false;
+            submitButton.innerText = "Send Message";
+            return;
+        }
+
+        const formData = {
+            name: nameField.value.trim(),
+            email: emailField.value.trim(),
+            phone: phoneField.value.trim(),
+            message: messageField.value.trim()
+        };
+
+        console.log("Contact Form Data:", formData);
+
+        fetch("http://localhost:8081/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to send message");
+                }
+                return response.text();
             })
-                .then(response => response.text())
-                .then(data => {
-                    alert("Message sent successfully!");
-                    contactForm.reset();
-                    setTimeout(() => location.reload(), 500);
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("Failed to send message. Please try again.");
-                });
-        });
-    }
+            .then(data => {
+                alert("Your message has been sent successfully!");
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Failed to send message. Please try again.");
+            })
+            .finally(() => {
+                // Re-enable the button and reset flag regardless of outcome
+                isSubmitting = false;
+                submitButton.disabled = false;
+                submitButton.innerText = "Send Message";
+            });
+    });
+}
 
 
 });
