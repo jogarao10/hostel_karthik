@@ -26,7 +26,7 @@ public class CustomerController {
     	
     	logger.info("Received request to confirm customer: {}", customer.getName());
     	
-        try {
+        try { 
             // Hostel owner's email (change this)
             String ownerEmail = "elitekarthikpg@gmail.com"; 
 
