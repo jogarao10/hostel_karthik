@@ -28,7 +28,7 @@ public class ContactController {
     public ResponseEntity<String> sendContactEmail(@RequestBody ContactMessage contactMessage) {
         try {
             // Email destination (your email address)
-            String ownerEmail = "oraclecourse107@gmail.com";
+            String ownerEmail = "elitekarthikpg@gmail.com";
 
             // Construct subject and body for the email
             String subject = "New Contact Message from " + contactMessage.getName();
